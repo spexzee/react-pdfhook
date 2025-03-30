@@ -1,6 +1,6 @@
 {
   "name": "@spexzee/react-pdfhook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React hook for generating PDF documents from components",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -11,7 +11,17 @@
     "prepare": "npm run build",
     "clean": "rimraf dist"
   },
-  "keywords": ["react", "pdf","convert", "document", "generator", "hook" , "page-break" , "add-image", "add-element"],
+  "keywords": [
+    "react",
+    "pdf",
+    "convert",
+    "document",
+    "generator",
+    "hook",
+    "page-break",
+    "add-image",
+    "add-element"
+  ],
   "author": "Spexzee | Abu",
   "repository": {
     "type": "git",

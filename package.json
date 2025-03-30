@@ -1,0 +1,42 @@
+{
+  "name": "@spexzee/react-pdfhook",
+  "version": "1.0.0",
+  "description": "React hook for generating PDF documents from components",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prerelease": "npm run clean && npm run build",
+    "prepare": "npm run build",
+    "clean": "rimraf dist"
+  },
+  "keywords": ["react", "pdf","convert", "document", "generator", "hook" , "page-break" , "add-image", "add-element"],
+  "author": "Spexzee | Abu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spexzee/react-pdfhook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/spexzee/react-pdfhook/issues"
+  },
+  "homepage": "https://github.com/spexzee/react-pdfhook#readme",
+  "license": "MIT",
+  "type": "commonjs",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "jspdf": "^2.5.1",
+    "html2canvas": "^1.4.1"
+  },
+  "dependencies": {
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "^5.8.2"
+  }
+}

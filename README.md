@@ -1,9 +1,9 @@
-# React PDF Generator Hook - react-pdfhook
+# React PDF Generator Hook - @spexzee/react-pdfhook
 
-![npm](https://img.shields.io/npm/v/react-pdfhook)
-![license](https://img.shields.io/npm/l/react-pdfhook)
-![downloads](https://img.shields.io/npm/dm/react-pdfhook)
-![types](https://img.shields.io/npm/types/react-pdfhook)
+![npm](https://img.shields.io/npm/v/@spexzee/react-pdfhook)
+![license](https://img.shields.io/npm/l/@spexzee/react-pdfhook)
+![downloads](https://img.shields.io/npm/dm/@spexzee/react-pdfhook)
+![types](https://img.shields.io/npm/types/@spexzee/react-pdfhook)
 
 A production-ready React hook for generating high-fidelity PDFs with advanced layout control and content targeting.
 
@@ -32,15 +32,15 @@ A production-ready React hook for generating high-fidelity PDFs with advanced la
 ## Installation
 
 ```bash
-npm install react-pdfhook jspdf html2canvas
+npm install @spexzee/react-pdfhook jspdf html2canvas
 # or
-yarn add react-pdfhook jspdf html2canvas
+yarn add @spexzee/react-pdfhook jspdf html2canvas
 ```
 
 ## Basic Usage
 
 ```jsx
-import { usePdfGenerator } from 'react-pdfhook';
+import { usePdfGenerator } from '@spexzee/react-pdfhook';
 
 function DocumentGenerator() {
   const { generatePdf, pdfRef } = usePdfGenerator({

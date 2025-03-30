@@ -7,6 +7,8 @@
 
 A production-ready React hook for generating high-fidelity PDFs with advanced layout control and content targeting.
 
+Main Issue solved : if data doesn't fit in a remaining screen it will start from next page
+
 ## Features
 
 - **Precision PDF Generation**
@@ -47,24 +49,7 @@ function DocumentGenerator() {
     fileName: 'document.pdf'
   });
 
-  return (
-    <div>
-      <button onClick={() => generatePdf()}>Generate PDF</button>
-      <div ref={pdfRef}>
-        <h1>My Document</h1>
-        <p>This content will appear in the PDF</p>
-      </div>
-    </div>
-  );
-}
-```
-
-## Advanced Usage
-
-### 1. Targeted PDF Generation
-
-```jsx
-const handleDownload = async () => {
+  const handleDownload = async () => {
   await generatePdf([
     {
       selector: '/images/header.jpg',
@@ -76,18 +61,43 @@ const handleDownload = async () => {
       }
     },
     { 
-      selector: '.main-content', 
+      selector: '.header-content', 
       mapping: false,
       type: 'element' 
     },
     { 
-      selector: '.data-table', 
-      mapping: true, // Capture all matching tables
+      selector: '.multi-data', 
+      // advantage of using mapping , it will single single data into pdf , so we can easilt manage page-breaks , 
+
+      // if data doesn't fit in a remaining screen it will start from next page
+      mapping: true, 
       type: 'element' 
     }
   ]);
 };
+
+  return (
+    <div>
+      <button onClick={handleDownload}>Generate PDF</button>
+      <div ref={pdfRef}>
+        <div className="header-content">
+            <h1>My Document</h1>
+            <p>This content will appear in the PDF</p> 
+        </div>
+        {
+            data.map((x)=>(
+                <div className="multi-data"> 
+                    <AnyComponentName data={x}>
+                </div>
+            ))
+        }
+      </div>
+    </div>
+  );
+}
 ```
+
+
 
 ### 2. PDF-Only Content
 
@@ -103,8 +113,22 @@ const handleDownload = async () => {
   </div>
 </div>
 ```
+### 2. Screen-Only Content
 
-**Required CSS:**
+```jsx
+<div ref={pdfRef}>
+  {/* Visible in both browser and PDF */}
+  <h1>Public Report</h1>
+  
+  {/* Hidden in pdf, visible only in browser */}
+  <div className="screen-only">
+    <h2>Confidential Details</h2>
+    <p>Only visible in the generated PDF</p>
+  </div>
+</div>
+```
+
+**Required CSS for PDF Only:**
 ```css
 .pdf-only {
   display: none;

@@ -35,6 +35,6 @@ export interface PageBreakOptions {
   }
 
   export type UsePdfGeneratorReturn = {
-    generatePdf: (content?: PdfContentItem[]) => Promise<void>;
+    generatePdf: (content: PdfContentItem[]) => Promise<void>;
     pdfRef: RefObject<HTMLDivElement | null> | null;
   };

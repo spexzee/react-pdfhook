@@ -1,23 +1,18 @@
 import { RefObject } from "react";
 
-export interface PageBreakOptions {
-    before?: boolean;
-    after?: boolean;
-    avoid?: string[];
-  }
-  
+  export interface ImageOptions {
+    width?: number;
+    height?: number;
+    x?: number;
+    y?: number;
+    format?: 'JPEG' | 'PNG';
+    maintainAspectRatio?: boolean;
+  };
   export interface PdfContentItem {
     selector: string;
     mapping: boolean;
     type: 'element' | 'image';
-    imageOptions?: {
-      width?: number;
-      height?: number;
-      x?: number;
-      y?: number;
-      format?: 'JPEG' | 'PNG';
-      maintainAspectRatio?: boolean;
-    };
+    imageOptions?: ImageOptions
   }
   
   export interface PdfGeneratorOptions {
@@ -28,10 +23,11 @@ export interface PageBreakOptions {
       | number
       | { top?: number; right?: number; bottom?: number; left?: number };
     scale?: number;
-    pageBreak?: boolean | PageBreakOptions;
+    pageBreak?: boolean;
     debug?: boolean;
     fixedWidth?: number;
     imageQuality?: number;
+    compressPdf?: boolean;
   }
 
   export type UsePdfGeneratorReturn = {

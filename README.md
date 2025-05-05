@@ -26,11 +26,6 @@ Main Issue solved : if data doesn't fit in a remaining screen it will start from
   - Responsive design preservation
   - Customizable margins and page formats
 
-- **Optimized Performance**
-  - Lightweight (~5kB gzipped)
-  - Zero runtime dependencies
-  - TypeScript-first design
-
 ## Installation
 
 ```bash
@@ -43,6 +38,7 @@ yarn add @spexzee/react-pdfhook jspdf html2canvas
 
 ```jsx
 import { usePdfGenerator } from '@spexzee/react-pdfhook';
+import Image from './images/header.jpg'
 
 function DocumentGenerator() {
   const { generatePdf, pdfRef } = usePdfGenerator({
@@ -52,7 +48,7 @@ function DocumentGenerator() {
   const handleDownload = async () => {
   await generatePdf([
     {
-      selector: '/images/header.jpg',
+      selector: Image.src,
       mapping: false,
       type: 'image',
       imageOptions: {
@@ -148,26 +144,8 @@ const { generatePdf } = usePdfGenerator({
   fixedWidth: 1200, // pixels (optimal for A4 width)
   scale: 1.5, // Quality/performance balance
   margin: { top: 20, right: 15, bottom: 20, left: 15 }, // mm
-  pageBreak: {
-    before: true,
-    avoid: ['.keep-together'] // CSS selector of elements to keep together
-  }
+  pageBreak: true
 });
-```
-
-### 4. Image Handling
-
-```jsx
-// Local images (must be in public folder)
-<img src="/images/logo.png" alt="Logo" />
-
-// Remote images (require CORS)
-<img 
-  src="https://example.com/chart.png" 
-  crossOrigin="anonymous"
-  alt="Chart"
-/>
-
 ```
 
 ## Complete API Reference
@@ -182,9 +160,10 @@ const { generatePdf } = usePdfGenerator({
 | `margin` | number/object | 0 | Margins in mm |
 | `fixedWidth` | number | undefined | Constrained width in pixels |
 | `scale` | number | 2 | Render quality multiplier |
-| `pageBreak` | boolean/object | true | Auto page break config |
+| `pageBreak` | boolean | true | Auto page break config |
 | `imageQuality` | number | 1 | Image quality (0-1) |
 | `debug` | boolean | false | Enable debug logging |
+| `compressPdf` | boolean | true | Compress the pdf size|
 
 ### Content Configuration
 
@@ -219,16 +198,6 @@ interface PdfContentItem {
      fixedWidth: 800 // Smaller fixed width
    }
    ```
-
-3. **For complex layouts**:
-   ```jsx
-   // Add to elements that should stay together
-   <div className="keep-together">
-     <h2>Section Title</h2>
-     <p>Content that shouldn't be split across pages</p>
-   </div>
-   ```
-
 ## Troubleshooting
 
 **Issue** | **Solution**
@@ -237,14 +206,6 @@ Images missing | Verify paths and CORS headers
 Content clipped | Increase margins or reduce fixedWidth
 PDF-only content not showing | Check CSS and media queries
 Performance problems | Reduce scale and imageQuality
-
-## Changelog
-
-**v1.0.0** (Current)
-- Added advanced content targeting
-- Improved image handling
-- Enhanced TypeScript support
-- Better layout preservation
 
 ## License
 

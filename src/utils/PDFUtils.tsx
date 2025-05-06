@@ -27,7 +27,7 @@ export const addCustomImagetoPDF = async (
         image.onload = () => {
             const imgWidth = image.naturalWidth;
             const imgHeight = image.naturalHeight;
-            const pdfWidth = options?.width || pdf.internal.pageSize.getWidth() - margin * 2.0;
+            const pdfWidth = options?.width || pdf.internal.pageSize.getWidth() - margin * 2.8;
             const pdfHeight = options?.height || (imgHeight * pdfWidth) / imgWidth;
             const x = options?.x || margin;
             const y = options?.y || yPos;

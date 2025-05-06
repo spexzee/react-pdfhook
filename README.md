@@ -29,9 +29,9 @@ Main Issue solved : if data doesn't fit in a remaining screen it will start from
 ## Installation
 
 ```bash
-npm install @spexzee/react-pdfhook jspdf html2canvas
+npm install @spexzee/react-pdfhook 
 # or
-yarn add @spexzee/react-pdfhook jspdf html2canvas
+yarn add @spexzee/react-pdfhook 
 ```
 
 ## Basic Usage
@@ -46,6 +46,7 @@ function DocumentGenerator() {
   });
 
   const handleDownload = async () => {
+  // manually add which elements we wants in pdf 
   await generatePdf([
     {
       selector: Image.src,
@@ -70,6 +71,7 @@ function DocumentGenerator() {
       type: 'element' 
     }
   ]);
+
 };
 
   return (
@@ -92,7 +94,49 @@ function DocumentGenerator() {
   );
 }
 ```
+# Normal Function example 
 
+## Component Implementation
+
+```tsx
+import React, { useRef } from 'react';
+import { usePdfGenerator } from '@spexzee/react-pdfhook';
+
+const SimplePdfExport = () => {
+  const { exportToPdf, pdfRef, pdfLoading } = usePdfGenerator({
+    fileName: 'my-document',
+  });
+
+  return (
+    <div>
+      <button onClick={exportToPdf} disabled={pdfLoading}>
+        {pdfLoading ? 'Generating...' : 'Export PDF'}
+      </button>
+
+      {/* This div's contents will be converted to PDF */}
+      <div ref={pdfRef} style={{ padding: '20px' }}>
+        <h1>Document Title</h1>
+        
+        <div className="section">
+          <h2>Section 1</h2>
+          <p>This content will be processed (parent element)</p>
+          
+          <div className="subsection">
+            <p>Nested content 1 (child element)</p>
+            <p>Nested content 2 (child element)</p>
+          </div>
+        </div>
+        
+        <div className="footer">
+          <p>This footer has no children and will be processed directly</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SimplePdfExport;
+```
 
 
 ### 2. PDF-Only Content

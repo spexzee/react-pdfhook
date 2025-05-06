@@ -86,7 +86,56 @@ const usePdfGenerator = (options: PdfGeneratorOptions) => {
         }
     };
 
-    return { generatePdf, pdfRef, pdfLoading };
+    const exportToPdf  = async () => {
+        try {
+            setPdfLoading(true);
+            if (!pdfRef.current) return;
+
+            const pdf = new jsPDF(orientation, 'mm', format, compressPdf);
+            const marginValue = typeof margin === 'number' ? margin : margin.top || 5;
+            let yPos = marginValue;
+
+            const elementsToProcess = Array.from(pdfRef.current.children) as HTMLElement[];
+            
+            for (const element of elementsToProcess) {
+                const subChildren = Array.from(element.children) as HTMLElement[];
+                
+                if (subChildren.length === 0) {
+                    yPos = await addElementToPdf(
+                        pdf, 
+                        element, 
+                        yPos, 
+                        marginValue, 
+                        scale, 
+                        fixedWidth, 
+                        imageQuality
+                    );
+                } else {
+                    for (const subChild of subChildren) {
+                        yPos = await addElementToPdf(
+                            pdf, 
+                            subChild, 
+                            yPos, 
+                            marginValue, 
+                            scale, 
+                            fixedWidth, 
+                            imageQuality
+                        );
+                    }
+                }
+            }
+
+            const finalFileName = fileName.endsWith('.pdf') ? fileName : `${fileName}.pdf`;
+            pdf.save(finalFileName);
+        } catch (error) {
+            if (debug) console.error('Error generating PDF', error);
+            throw error;
+        } finally {
+            setPdfLoading(false);
+        }
+    };
+
+    return { generatePdf, pdfRef, pdfLoading, exportToPdf  };
 };
 
 export default usePdfGenerator;
